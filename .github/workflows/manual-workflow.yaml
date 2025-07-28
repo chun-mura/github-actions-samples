@@ -22,6 +22,7 @@ jobs:
       run: echo "Hello ${{ inputs.name }}"
 
   farewell:
+    needs: greet
     runs-on: ubuntu-latest
 
     steps:
