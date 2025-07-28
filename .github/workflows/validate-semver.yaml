@@ -15,6 +15,9 @@ jobs:
   validate-tag:
     runs-on: ubuntu-latest
 
+    outputs:
+      tag: ${{ steps.set-vars.outputs.tag }}
+
     steps:
       - name: Set Variables Based on Event
         id: set-vars
@@ -39,3 +42,9 @@ jobs:
         uses: ./.github/actions/validate-semver
         with:
           version: ${{ github.event.inputs.version }}
+
+  call-workflow:
+    needs: validate-tag
+    uses: ./.github/workflows/validation-finished.yaml
+    with:
+      tag: ${{ needs.validate-tag.outputs.tag }}
