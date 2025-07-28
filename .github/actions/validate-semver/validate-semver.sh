@@ -1,4 +1,4 @@
-#!/bin/bash/env bash
+#!/usr/bin/env bash
 
 VERSION=$1
 SEMVER_REGEX="^v([0-9]+)\.([0-9]+)\.([0-9]+)$"
