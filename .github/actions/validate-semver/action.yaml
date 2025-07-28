@@ -1,4 +1,4 @@
-name: 'Validate Semantic Versioning'
+name: 'Validate Semantic Version'
 description: 'Checks if the provided version follows Semantic Versioning'
 inputs:
   version:
@@ -9,4 +9,4 @@ runs:
   steps:
     - name: Validate Semantic Version
       shell: bash
-      run: ${{ github.action_path }}/validate-semver.sh ${{ input.version }}
+      run: ${{ github.action_path }}/validate-semver.sh ${{ inputs.version }}
