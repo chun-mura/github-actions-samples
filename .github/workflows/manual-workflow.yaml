@@ -21,6 +21,10 @@ jobs:
     - name: Send greeting
       run: echo "Hello ${{ inputs.name }}"
 
+  farewell:
+    runs-on: ubuntu-latest
+
+    steps:
     - name: Send Farewell
       if: ${{ inputs.is-set-farewell-message }}
       run: echo "Goodbye ${{ inputs.name }}"
