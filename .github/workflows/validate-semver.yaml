@@ -25,7 +25,7 @@ jobs:
           elif [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
             tag=${{ inputs.version }}
           else
-            echo "Error: Unsupported event_name '${{ github.event_name }}'" > &2
+            echo "Error: Unsupported event_name '${{ github.event_name }}'" >&2
             exit 1
           fi
           echo "tag=${tag}" >> $GITHUB_OUTPUT
@@ -34,9 +34,9 @@ jobs:
       - name: Validate Semantic Version
         id: validate-version
         run: |
-          VERSION=${{ steps.set-vers.outputs.tag }}
+          VERSION=${{ steps.set-vars.outputs.tag }}
           SEMVER_REGEX="^v([0-9]+)\.([0-9]+)\.([0-9]+)$"
-          if [[ ! "$VERSION" =~ $SEMVER_REGEX ]]: then
+          if [[ ! "$VERSION" =~ $SEMVER_REGEX ]]; then
             echo "Invalid version: ${VERSION}"
             exit 1
           fi
