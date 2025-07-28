@@ -34,7 +34,7 @@ jobs:
       - name: Validate Semantic Version
         id: validate-version
         run: |
-          VERSION=${{ step.set-vers.outputs.tag }}
+          VERSION=${{ steps.set-vers.outputs.tag }}
           SEMVER_REGEX="^v([0-9]+)\.([0-9]+)\.([0-9]+)$"
           if [[ ! "$VERSION" =~ $SEMVER_REGEX ]]: then
             echo "Invalid version: ${VERSION}"
