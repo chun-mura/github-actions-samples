@@ -17,15 +17,30 @@ jobs:
   greet:
     runs-on: ubuntu-latest
 
+    outputs:
+      farewell_message: ${{ steps.set-farewell-message.outputs.farewell-message }}
+
     steps:
     - name: Send greeting
       run: echo "Hello ${{ inputs.name }}"
+
+    - name: Prepare farewell message
+      if: ${{ inputs.is-set-farewell-message }}
+      id: set-farewell-message
+      run: echo "farewell-message=Did you receive the greeting I sent earlier?" >> "$GITHUB_OUTPUT"
+
+    - name: Debug
+      if: ${{ inputs.is-set-farewell-message }}
+      run : echo "${{ steps.set-farewell-message.outputs.farewell-message }}"
 
   farewell:
     needs: greet
     runs-on: ubuntu-latest
 
     steps:
-    - name: Send Farewell
+    - name: Send Farewell if is-set-farewell-message flag is true
       if: ${{ inputs.is-set-farewell-message }}
+      run: echo "${{ needs.greet.outputs.farewell_message }}"
+
+    - name: Send farewell
       run: echo "Goodbye ${{ inputs.name }}"
